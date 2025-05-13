@@ -9,6 +9,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
   const [serverError, setServerError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -38,6 +39,7 @@ const Login = () => {
     setServerError('');
 
     if (Object.keys(validationErrors).length === 0) {
+      setIsLoading(true);
       try {
         const res = await axios.post(`${API}/login`, {
           email,
@@ -54,6 +56,8 @@ const Login = () => {
         } else {
           setServerError('An error occurred. Please try again.');
         }
+      } finally {
+        setIsLoading(false);
       }
     }
   };
@@ -95,8 +99,9 @@ const Login = () => {
           <button
             type="submit"
             className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition cursor-pointer"
+            disabled={isLoading}
           >
-            Login
+            {isLoading ? 'Logging in...' : 'Login'}
           </button>
         </form>
 

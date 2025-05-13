@@ -10,6 +10,7 @@ const Register = () => {
   const [errors, setErrors] = useState({});
   const [serverError, setServerError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const validate = () => {
     const newErrors = {};
@@ -36,7 +37,7 @@ const Register = () => {
       setErrors(validationErrors);
       return;
     }
-
+    setIsLoading(true);
     try {
       const res = await axios.post(`${API}/register`, {
         username,
@@ -57,6 +58,8 @@ const Register = () => {
       } else {
         setServerError('Server error. Please try again.');
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -118,8 +121,9 @@ const Register = () => {
           <button
             type="submit"
             className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition cursor-pointer"
+            disabled={isLoading}
           >
-            Register
+            {isLoading ? 'Registering...' : 'Register'}
           </button>
         </form>
 
