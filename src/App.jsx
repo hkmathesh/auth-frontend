@@ -4,7 +4,7 @@ import Login from './pages/Login';
 import Home from './pages/Home'; // protected page
 import PrivateRoute from './components/PrivateRoute';
 import './App.css'
-// import 'tailwindcss'
+import 'tailwindcss'
 
 const App = () => {
   return (

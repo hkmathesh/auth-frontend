@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+const API = import.meta.env.VITE_API_BASE_URL;
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -37,7 +38,7 @@ const Register = () => {
     }
 
     try {
-      const res = await axios.post('http://localhost:5000/api/register', {
+      const res = await axios.post(`${API}/register`, {
         username,
         email,
         password
@@ -110,7 +111,7 @@ const Register = () => {
             {errors.password ? (
               <p className="text-sm text-red-500 mt-1">{errors.password}</p>
             ) : (
-              <p className="text-xs text-gray-500 mt-1">Min. 6 characters</p>
+              <p className="text-xs text-gray-500 mt-1">Minimum 6 characters</p>
             )}
           </div>
 
